@@ -3,21 +3,35 @@
 //display output to the console 
 // simulates the hr 
 
-class bioSensor{
-    constructor(name){
-        this.name = name;
-        var rate = 0;
-        rate++;
-        var heartBeat = Math.floor((Math.random() * (72 - 60)) + 60);
-        while (rate > 100){
-        //var heartBeat = Math.floor((Math.random() * (72 - 60)) + 60);
-        setInterval(heartBeat, 1000); 
-        console.log(name, "current heart beat is: ", heartBeat);  
-        }
+
+//class to generate heart rate with owner name 
+
+class Biosensor {
+    constructor(name) {
+        this.owner = name;
+        this.heartRate = 0;
+        this.live();
     }
+    //generate a random heart rate between a given range
+    getRandomHeartRate(min, max) {
+        return parseInt(Math.random() * (max - min) + min);
+      }
     
-} 
+    //generate heart rate for the user
+    beat(){
+       let hr = this.getRandomHeartRate(60, 79);
+       this.heartRate = hr; 
+       console.log("[Owner]: " + this.owner + " ------- [HR]: " + this.heartRate); 
+    }
+    //keep generating a random heart rate every 2 seconds for the user
+    live(){
+        setInterval(()=>{this.beat()}, 2000);
+    }
 
-var user1 = new bioSensor('Andrea');
-var user2 = new bioSensor('James');
 
+}
+
+let James = new Biosensor('James');
+let Andrea = new Biosensor('Andrea');
+console.log(James);
+console.log(Andrea);
